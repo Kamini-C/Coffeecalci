@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>Tuxedo Cat Coffee</title>
+	<link type="text/css" rel="stylesheet" href="cafe.css">
+	<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+</head>
+<body>
+	<header>
+		<img src="images/logo.png" alt="Tuxedo Cat Coffee" />
+	</header>
+	<main>
+		<form id="order_form" name="order_form" action="checkout.html" method="get">
+			<section id="menu">
+				<h2>Menu</h2>
+				<p>Click an item to add it to your order.</p>
+				<ul>
+					<li><a><img id="images/espresso.jpg" src="images/espresso_info.jpg" alt="espresso" /></a></li>
+					<li><a><img id="images/latte.jpg" src="images/latte_info.jpg" alt="latte" /></a></li>
+					<li><a><img id="images/cappuccino.jpg" src="images/cappuccino_info.jpg" alt="cappuccino" /></a></li>
+					<li><a><img id="images/coffee.jpg" src="images/coffee_info.jpg" alt="coffee" /></a></li>
+					<li><a><img id="images/biscotti.jpg" src="images/biscotti_info.jpg" alt="biscotti" /></a></li>
+					<li><a><img id="images/scone.jpg" src="images/scone_info.jpg" alt="scone" /></a></li>
+				</ul>
+			</section>
+
+			<section>
+				<h2>Your Order</h2>
+				<section>
+					<select id="order" name="order" size="6">
+					</select>
+					</br /> Total : $<span id="total"></span>
+				</section>
+				<section id="buttons">
+					<input type="button" name="place_order" id="place_order" value="Place Order">
+					<input type="button" name="clear_order" id="clear_order" value="Clear Order">
+				</section>
+			</section>
+		</form>
+	</main>
+	<script>
+		$(function () {
+			let productPrice = { "espresso": 1.95, "latte": 2.95, "cappuccino": 3.45, "coffee": 1.75, "biscotti": 1.95, "scone": 2.95 };
+			let orderList = [];
+			let total = 0;
+			updateTotal(0);
+			$("#order_form #menu ul li img").on("mouseenter", function () {
+				orgSource = this.src;
+				//$(this).addClass("animateImg");
+				$(this).attr("src", this.id);
+			}).on("mouseleave", function () {
+				$(this).attr("src", orgSource);
+			}).on("click", addToCart);
+			
+			function addToCart() {
+				productNAme = this.alt;
+				productAmount = productPrice[productNAme];
+				$("#order").append(`<option value="${productAmount}"> $${productAmount} - ${productNAme}</option>`);
+				updateTotal(productAmount);
+			}
+			function updateTotal(amount) {
+				total += amount;
+				$("#total").text(parseFloat(total).toFixed(2));
+			}
+			$("#place_order").on("click", function () {
+				if (!total == 0)
+					window.location.href = "checkout.html";
+				else
+					alert("Make a selection first");
+			})
+			$("#clear_order").on("click", function () {
+				$("#order").text("");
+				total = 0;
+				updateTotal(0);
+			})
+		});
+	</script>
+</body>
+
+</html>
