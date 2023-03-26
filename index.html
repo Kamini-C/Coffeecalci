@@ -8,7 +8,7 @@
 </head>
 <body>
 	<header>
-		<img src="images/logo.png" alt="Tuxedo Cat Coffee" />
+		<img class="logo" src="images/logo.png" alt="Tuxedo Cat Coffee" />
 	</header>
 	<main>
 		<form id="order_form" name="order_form" action="checkout.html" method="get">
@@ -28,21 +28,27 @@
 			<section>
 				<h2>Your Order</h2>
 				<section>
-					<select id="order" name="order" size="6" class="form-control">
+					<select id="order" name="order" size="6">
 					</select>
-					</br /> Total : $<span id="total"></span>
-					<span></span>
+					Total : $<span id="total"></span>
 				</section>
 				<section id="buttons">
-					<input type="button" name="place_order" id="place_order" value="Place Order">
-					<input type="button" name="clear_order" id="clear_order" value="Clear Order">
+					<input type="button" class="btn-brown" name="place_order" id="place_order" value="Place Order">
+					<input type="button" class="btn-brown" name="clear_order" id="clear_order" value="Clear Order">
 				</section>
 			</section>
 		</form>
 	</main>
 	<script>
 		$(function () {
-			let productPrice = { "espresso": 1.95, "latte": 2.95, "cappuccino": 3.45, "coffee": 1.75, "biscotti": 1.95, "scone": 2.95 };
+			let productPrice = { 
+				"espresso": 1.95, 
+				"latte": 2.95, 
+				"cappuccino": 3.45, 
+				"coffee": 1.75, 
+				"biscotti": 1.95, 
+				"scone": 2.95 
+			};
 			let orderList = [];
 			let total = 0;
 			updateTotal(0);
